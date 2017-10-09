@@ -25,9 +25,11 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js'
     }
   }
+
+  
 }
 </script>
 
@@ -36,6 +38,13 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
+
+
+h1 {
+  width: 5rem;
+
+}
+
 
 ul {
   list-style-type: none;
