@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    这是主页面
-    
     <router-view/>
   </div>
 </template>
