@@ -21,27 +21,34 @@
 </template>
 
 <script>
+import api from '@/api/account'
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to Your Vue.js'
     }
+  },
+  mounted () {
+    debugger
+    api.getUsers().then(res => {
+      debugger
+    }).catch(err => {
+      console.log(err)
+    })
   }
-
-  
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 h1, h2 {
   font-weight: normal;
 }
 
 
 h1 {
-  width: 5rem;
+  width: 100px;
 
 }
 

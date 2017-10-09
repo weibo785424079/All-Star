@@ -40,7 +40,8 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueLoaderConfig
+        options: vueLoaderConfig,
+        exclude: [path.resolve(__dirname, '../src/components')]
       },
       {
         test: /\.js$/,
