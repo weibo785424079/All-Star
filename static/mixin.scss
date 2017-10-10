@@ -1,0 +1,46 @@
+$blue:#3190e8;
+$bc:#e4e4e4;
+$fc:#fff;
+
+//背景
+@mixin bis($url) {
+    background-image: url($url);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+@mixin borerRadius($radius) {
+    border-radius:$radius; 
+}
+
+//上下左右居中
+@mixin allCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)
+}
+
+//定义宽高
+@mixin wh($width,$height) {
+    width: $width;
+    height: $height;
+}
+//定义字体大小，行高，字体颜色
+@mixin sizelinecolor($size,$line,$color) {
+    font-size: $size;
+    line-height: $line;
+    color: $color;
+}
+
+//flex布局
+@mixin fj($type:space-between) {
+    display: flex;
+    justify-content: $type;
+}
+
+
+
+
+
+
