@@ -36,7 +36,6 @@ exports.cssLoaders = function (options) {
     if (loader) {
       //支持px2rem
       if (options.px2rem === true) {
-        console.log('px2rem')
         loaders.push({
           loader: 'px2rem-loader',
           options: Object.assign({}, {

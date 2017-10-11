@@ -1,20 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" style="width:5rem;">
-    <transition name="router-fade" mode="out-in">
+    <head-top goBack="true" headTitle="All-Stars" :signinUp="true"></head-top>    
+    <transition name="router-fade" mode="out-in" >
     <router-view/>
     </transition>
     <svg-icon></svg-icon>	
+    <foot-guide></foot-guide>
   </div>
 </template>
 
 <script>
-
+import headTop from './components/header/head.vue'
+import footGuide from './components/footer/footGuide.vue'
 import svgIcon from './components/common/svg'
 export default {
   name: 'app',
   components: {
-    svgIcon
+    svgIcon,
+    headTop,
+    footGuide
   }
 }
 </script>
@@ -27,7 +31,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  // margin-top: 60px;
+  padding-top: 1rem;
+  padding-bottom: 100px;
 }
 .router-fade-enter-active, .router-fade-leave-active {
 	  	transition: opacity .3s;
