@@ -2,7 +2,7 @@
   <div class="hello">
     <img src="../assets/curry/timg.jpeg" style="width:5rem;border-radius:50%;">
     <h1>{{ msg }}</h1>
-    <h2>Welcome ！</h2>
+    <h2>Welcome ！{{userInfo && userInfo.name}}</h2>
     <section class="pub-star">
       热门球星
       <div class="img-item">
@@ -40,7 +40,7 @@ export default {
     this.$bus.$on('bus', function () {
       debugger
     })
-    this.getUser({ id: 2 })
+    // this.getUser({ id: 2 })
   },
   methods: {
     ...mapActions([

@@ -165,11 +165,18 @@ export default {
   },
   computed: {
     ...mapState([
+      'userInfo'
     ])
   },
   methods: {
     gotoAddress (path) {
-      this.$router.push(path)
+      const info = this.userInfo
+      if ((info === null || info === '') && path.path !== '/') {
+          // 没有用户信息需要重新登录
+        this.$router.push({path: '/login'})
+      } else {
+        this.$router.push(path)
+      }
     }
   }
 }

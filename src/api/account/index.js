@@ -8,5 +8,8 @@ export default {
         ...id
       }
     })
+  },
+  login (params) {
+    return axios.post(`${PRE_URL}/user/login`, params)
   }
 }

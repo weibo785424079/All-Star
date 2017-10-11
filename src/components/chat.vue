@@ -3,13 +3,13 @@
       chat with some friends!!
       <div class="right">在线：6</div>
       <ul class="msg-box">
-          <li class="msg" v-for="(item,index) in msgs">
+          <li class="msg" v-for="(item,index) in msgs" :style="userInfo&& userInfo.name==item.target?'text-align:right':'text-align:left'" :key="index"> 
              <p>{{item.content}}</p> 
           </li>
       </ul>
       <section class="insert">
           <input v-model="msgSend" type="text">&nbsp;
-          <mt-button class="info" type='info' @click="send">发送</mt-button>
+          <mt-button class="info" @click="send">发送</mt-button>
       </section>
   </div>
 </template>
@@ -17,54 +17,63 @@
 <script>
 import chatApi from '@/api/chat'
 import server from '@/models/server'
+import { mapState } from 'vuex'
 export default {
   name: 'chat',
   data () {
     return {
       msgs: [
-          {content: '波哥点了个赞！'},
-          {content: '波哥点了个赞！'},
-          {content: '波哥点了个赞！'},
-          {content: '波哥点了个赞！'},
-          {content: '波哥点了个赞！'},
-          {content: '波哥点了个赞！'}
+          {content: '波哥点了个赞！', target: 'weibo'},
+          {content: 'six点了个赞！', target: 'six'},
+          {content: '波哥点了个赞！', target: 'weibo'},
+          {content: 'six点了个赞！', target: 'six'},
+          {content: '波哥点了个赞！', target: 'weibo'},
+          {content: 'six点了个赞！', target: 'six'}
       ],
       msgSend: ''
     }
   },
+  computed: {
+    ...mapState([
+      'userInfo'
+    ])
+  },
   created () {
+    const _this = this
     this.ws = new window.WebSocket(server.wsServer + '/chat')
     // 响应onmessage事件
     this.ws.onmessage = (message) => {
-      debugger
+      if (message && message.data) {
+        let msg = JSON.parse(message.data)
+        _this.msgs.push(JSON.parse(msg.data))
+        _this.msgSend = ''
+      }
     }
   },
   mounted () {
-    const _this = this
-    chatApi.sendMsg(
-      {
-        username: 'weibo',
-        target: 'six',
-        content: 'hello 这是第一条消息的内容。'
-      }
-    ).then(res => {
-      // 发送成功了菜给ws服务器发送消息内容
-      if (res.data.status === 200) {
-        _this.ws.send(JSON.stringify({
-          type: 'info',
-          data: {
-            msg: '发送给wsServer'
-          }
-        }))
-      }
-    }).catch(e => {
-      console.log(e)
-    })
   },
   methods: {
     send () {
       const _this = this
-      alert(_this.msgSend)
+      const content = _this.msgSend
+      chatApi.sendMsg(
+        {
+          username: _this.userInfo.name,
+          target: _this.userInfo.name,
+          content
+        }
+      ).then(res => {
+      // 发送成功了菜给ws服务器发送消息内容
+        if (res.data.status === 200) {
+          _this.ws.send(JSON.stringify({
+            type: 'info',
+            content: content,
+            target: _this.userInfo.name
+          }))
+        }
+      }).catch(e => {
+        console.log(e)
+      })
     }
   }
 }
@@ -92,12 +101,12 @@ export default {
     .insert {
         padding: 0 30px;
         display: flex;
-        
         input {
             margin: auto;
             flex: 1;
             height: 25px;
             border: 1px solid #5bb683;
+            font-size: 24px;
         }
     }
 </style>
