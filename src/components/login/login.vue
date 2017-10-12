@@ -54,6 +54,7 @@
     // import headTop from '@/components/header/head'
     // import alertTip from '@/components/common/alertTip'
     // import {localapi, proapi, imgBaseUrl} from 'src/config/env'
+    import { MessageBox } from 'mint-ui'
     import { mapState } from 'vuex'
     // import {mobileCode, checkExsis, sendLogin, getcaptchas, accountLogin} from '../../service/getData'
     import userApi from '@/api/account'
@@ -89,6 +90,11 @@
               _this.$store.commit('GET_USERINFO', userInfo)
               _this.$router.push({
                 path: '/index'
+              })
+            } else {
+              MessageBox({
+                title: '提示',
+                message: res.data.message
               })
             }
           }).catch(e => {
@@ -309,7 +315,7 @@
             top: -0.2rem;
             z-index: 1;
             left:-3px;
-            @include wh(1.2rem, 1.2rem);
+            @include wh(39px, 39px);
             box-shadow: 0 0.026667rem 0.053333rem 0 rgba(0,0,0,.1);
             background-color: #f1f1f1;
             border-radius: 50%;

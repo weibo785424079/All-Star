@@ -88,9 +88,8 @@ export default {
     color: #fff;
     text-align: center;
     .title_text {
-        @include sc(24px, #fff);
+        @include sc(20px, #fff);
         text-align: center;
-        font-weight: bold;
     }
 }
 </style>

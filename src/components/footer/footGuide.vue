@@ -130,15 +130,17 @@
             </defs>
         </svg>
         <section @click="gotoAddress({path: '/'})" class="guide_item">
-            <svg class="icon_style">
+            <!-- <svg class="icon_style">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('index') !== -1? '#msiteActive' : '#msite'"></use>
-            </svg>
+            </svg> -->
+            <img src="../../assets/images/index.png" class="icon_style" alt="">
             <span>首页</span>
         </section>
         <section @click="gotoAddress({path: '/chat'})" class="guide_item">
-            <svg class="icon_style">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('chat') !== -1? '#findActive' : '#find'"></use>
-            </svg>
+            <!-- <svg class="icon_style"> -->
+                <!-- <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('chat') !== -1? '#findActive' : '#find'"></use> -->
+            <!-- </svg> -->
+            <img src="../../assets/images/refund.png" class="icon_style" alt="">
             <span>聊天室</span>
         </section>
         <section @click="gotoAddress('/order')" class="guide_item">
@@ -148,9 +150,10 @@
             <span>获取球星</span>
         </section>
         <section @click="gotoAddress('/profile')" class="guide_item">
-            <svg class="icon_style">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('profile') !== -1? '#profileActive' : '#profile'"></use>
-            </svg>
+            <!-- <svg class="icon_style"> -->
+                <!-- <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('profile') !== -1? '#profileActive' : '#profile'"></use> -->
+            <!-- </svg> -->
+             <img src="../../assets/images/member.png" class="icon_style" alt="">
             <span>我的球员</span>
         </section>
     </section>

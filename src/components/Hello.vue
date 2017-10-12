@@ -1,14 +1,33 @@
 <template>
   <div class="hello">
-    <img src="../assets/curry/timg.jpeg" style="width:5rem;border-radius:50%;">
+     <div class="page-swipe">
+        <mt-swipe>
+            <mt-swipe-item class="slide1">
+                <!-- <router-link to="/mine"> -->
+                    <img src="../assets/curry/timg1.jpeg"/>
+                <!-- </router-link> -->
+            </mt-swipe-item>
+            <mt-swipe-item class="slide2">
+                <!-- <router-link to="/product"> -->
+                    <img src="../assets/curry/timg3.jpeg"/>
+                <!-- </router-link> -->
+            </mt-swipe-item>
+            <mt-swipe-item class="slide3">
+                <!-- <router-link to="/detailPage"> -->
+                    <img src="../assets/curry/timg4.jpeg"/>
+                <!-- </router-link> -->
+            </mt-swipe-item>
+        </mt-swipe>
+    </div>
+    <!-- <img src="../assets/curry/timg.jpeg" style="width:5rem;border-radius:50%;"> -->
     <h1>{{ msg }}</h1>
     <h2>Welcome ！{{userInfo && userInfo.name}}</h2>
     <section class="pub-star">
       热门球星
       <div class="img-item">
-        <img src="../assets/curry/timg1.jpeg" alt="curry">
-        <img src="../assets/curry/timg4.jpeg" alt="curry">
-        <img src="../assets/curry/timg3.jpeg" alt="curry">
+        <img src="../assets/stars/kelaofude.jpg" alt="curry" @click="showStarDetail">
+        <img src="../assets/stars/lin1.jpg" alt="curry" @click="showStarDetail">
+        <img src="../assets/stars/deluozan1.jpg" alt="curry" @click="showStarDetail">
       </div>
     </section>
     <section class="pub-star">
@@ -21,20 +40,29 @@
     </section>
     <section class="pub-star">
       球星趣闻
+      <interesting-news></interesting-news>
     </section>
+    <alert-tip v-if="alertTipVisiable" @closeTip="closeTip" :alert-text="'hello'"></alert-tip>
   </div>
 </template>
 
 <script>
 // import api from '@/api/account'
+import interestingNews from './star/star-interesting-news.vue'
+import alertTip from '@/components/common/alertTip.vue'
 import {mapState, mapActions} from 'vuex'
 export default {
   name: 'hello',
   data () {
     return {
       msg: '欢迎来NABA球星卡基地！',
-      user: []
+      user: [],
+      alertTipVisiable: false
     }
+  },
+  components: {
+    interestingNews,
+    alertTip
   },
   mounted () {
     this.$bus.$on('bus', function () {
@@ -45,7 +73,13 @@ export default {
   methods: {
     ...mapActions([
       'getUser'
-    ])
+    ]),
+    closeTip () {
+      this.alertTipVisiable = false
+    },
+    showStarDetail () {
+      this.alertTipVisiable = true
+    }
   },
   computed: {
     ...mapState([
@@ -104,5 +138,37 @@ a {
       margin-right: 5px;
     }
   }
+}
+
+.mint-swipe {
+    width: 100%;
+    height: 200px;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+}
+.page-swipe img {
+      height: 100%;
+      width: 100%
+}
+.mint-swipe a {
+    display: block;
+    height: 200px;
+}
+.slide1 {
+    background-color: #0089dc;
+    color: #fff;
+    position: relative;
+}
+.slide2 {
+    background-color: #ffd705;
+    color: #000;
+    position: relative;
+}
+
+.slide3 {
+    background-color: #ff2d4b;
+    color: #fff;
+    position: relative;
 }
 </style>
