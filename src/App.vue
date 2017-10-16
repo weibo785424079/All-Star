@@ -13,12 +13,33 @@
 import headTop from './components/header/head.vue'
 import footGuide from './components/footer/footGuide.vue'
 import svgIcon from './components/common/svg'
+import userApi from './api/account'
 export default {
   name: 'app',
   components: {
     svgIcon,
     headTop,
     footGuide
+  },
+  mounted () {
+    userApi.checkLogin().then(res => {
+      const path = this.$route.path
+      if (!(path === '/index')) {
+        if (res.data.status === 10001) {
+          this.$router.push({
+            path: '/login'
+          })
+        } else if (res.data.status === 200) {
+          this.$store.commit('GET_USERINFO', res.data.data)
+        }
+      } else {
+        if (res.data.status === 200) {
+          this.$store.commit('GET_USERINFO', res.data.data)
+        }
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
 }
 </script>
@@ -34,6 +55,7 @@ export default {
   // margin-top: 60px;
   padding-top: 1rem;
   padding-bottom: 100px;
+  height: 100%;
 }
 .router-fade-enter-active, .router-fade-leave-active {
 	  	transition: opacity .3s;

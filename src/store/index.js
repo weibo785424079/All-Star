@@ -16,7 +16,8 @@ const state = {
   //   name: 'weibo',
   //   org: 'china\n',
   //   password: 'weibo0719',
-  //   status: 1
+  //   status: 1,
+  //   cards: '1,3,1'
   // } // 当前用户信息
   userInfo: null
 }

@@ -25,9 +25,9 @@
     <section class="pub-star">
       热门球星
       <div class="img-item">
-        <img src="../assets/stars/kelaofude.jpg" alt="curry" @click="showStarDetail">
-        <img src="../assets/stars/lin1.jpg" alt="curry" @click="showStarDetail">
-        <img src="../assets/stars/deluozan1.jpg" alt="curry" @click="showStarDetail">
+        <img v-for="(item,index) in starInfos" :src="item.pic" :key="index" alt="curry" @click="showStarDetail(index)">
+        <!-- <img src="../assets/stars/lin1.jpg" alt="curry" @click="showStarDetail"> -->
+        <!-- <img src="../assets/stars/deluozan1.jpg" alt="curry" @click="showStarDetail"> -->
       </div>
     </section>
     <section class="pub-star">
@@ -42,7 +42,7 @@
       球星趣闻
       <interesting-news></interesting-news>
     </section>
-    <alert-tip v-if="alertTipVisiable" @closeTip="closeTip" :alert-text="'hello'"></alert-tip>
+    <alert-tip v-show="alertTipVisiable" :starInfo="currStarInfo" @closeTip="closeTip" :alert-text="'hello'"></alert-tip>
   </div>
 </template>
 
@@ -51,13 +51,16 @@
 import interestingNews from './star/star-interesting-news.vue'
 import alertTip from '@/components/common/alertTip.vue'
 import {mapState, mapActions} from 'vuex'
+import starCtrl from '@/api/star'
 export default {
   name: 'hello',
   data () {
     return {
-      msg: '欢迎来NABA球星卡基地！',
+      msg: '欢迎来NBA球星卡基地！',
       user: [],
-      alertTipVisiable: false
+      alertTipVisiable: false,
+      starInfos: [],
+      currStarInfo: {}
     }
   },
   components: {
@@ -65,10 +68,18 @@ export default {
     alertTip
   },
   mounted () {
+    const _this = this
     this.$bus.$on('bus', function () {
       debugger
     })
     // this.getUser({ id: 2 })
+    starCtrl.getStarInfo({}).then(res => {
+      if (res.data.status === 200) {
+        _this.starInfos = res.data.data
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   },
   methods: {
     ...mapActions([
@@ -77,8 +88,9 @@ export default {
     closeTip () {
       this.alertTipVisiable = false
     },
-    showStarDetail () {
+    showStarDetail (id) {
       this.alertTipVisiable = true
+      this.currStarInfo = this.starInfos[id]
     }
   },
   computed: {

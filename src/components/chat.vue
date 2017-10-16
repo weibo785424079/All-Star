@@ -1,10 +1,10 @@
 <template>
   <div id='chat'>
       <span style="color:green;font-size:40px;">{{userInfo&&userInfo.name}}</span> chatting with some friends!!
-      <div class="right">在线：6</div>
+      <!-- <div class="right">在线：{{active}}</div> -->
       <ul class="msg-box">
           <li class="msg" v-for="(item,index) in msgs" :style="userInfo&& userInfo.name==item.author?'text-align:right':'text-align:left'" :key="index"> 
-             <p>{{item.author}}:  {{item.content}}</p> 
+             <p>{{item.author==userInfo.name?'我':item.author}}:  {{item.content}}</p> 
           </li>
       <div id="msg-bottom"></div>          
       </ul>
@@ -27,7 +27,8 @@ export default {
   data () {
     return {
       msgs: [],
-      msgSend: ''
+      msgSend: '',
+      active: 0
     }
   },
   computed: {
@@ -42,6 +43,7 @@ export default {
     _this.ws.onmessage = (message) => {
       if (message && message.data) {
         let msg = JSON.parse(message.data)
+        _this.active = msg.num
         _this.msgs.push(JSON.parse(msg.data))
         _this.msgSend = ''
         tools.scrollToMsgBottom()

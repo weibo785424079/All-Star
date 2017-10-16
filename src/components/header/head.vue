@@ -8,12 +8,14 @@
                 <polyline points="12,48 4,39 12,30" style="fill:none;stroke:rgb(255,255,255);stroke-width:2" />
             </svg>
         </section>
-        <router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login">
-            <svg class="user_avatar" v-if="userInfo">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
-            </svg>
-            <span class="login_span" v-else>登录|注册</span>
-        </router-link>
+        <!-- <router-link :to="userInfo? '/profile':'/login'" v-if='signinUp' class="head_login"> -->
+        <b  v-if='signinUp' class="head_login">
+            <!-- <svg class="user_avatar" v-if="userInfo"> -->
+                <!-- <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use> -->
+            <!-- </svg> -->
+            <span class="login_span" @click="logOut"  v-if='logined'>退出</span>
+            <span class="login_span" @click="logIn" v-else>登录|注册</span>
+        </b>
         <section class="title_head ellipsis" v-if="headTitle">
             <span class="title_text">{{headTitle}}</span>
         </section>
@@ -26,6 +28,7 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
+import userApi from '@/api/account'
 export default {
   data () {
     return {
@@ -40,12 +43,29 @@ export default {
   computed: {
     ...mapState([
       'userInfo'
-    ])
+    ]),
+    logined () {
+      return Object.keys(this.userInfo || {}).length > 0
+    }
   },
   methods: {
     ...mapActions([
       'getUser'
-    ])
+    ]),
+    logOut () {
+      userApi.logOut().then(res => {
+        if (res.data.status === 200) {
+          this.$store.commit('GET_USERINFO', null)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    logIn () {
+      this.$router.push({
+        path: '/login'
+      })
+    }
   }
 }
 </script>
