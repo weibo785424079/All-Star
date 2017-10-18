@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "jquery": "^3.2.1",
     "mint-ui": "^2.2.9",
+    "rxjs": "^5.4.3",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
+    "vue-rx": "^4.0.1",
     "vuex": "^2.4.1"
   },
   "devDependencies": {

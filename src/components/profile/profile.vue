@@ -3,7 +3,7 @@
   height:100%;">
       Stars: {{userInfo&&userInfo.name}}
       <section class="my-cards"  :style="{'-webkit-overflow-scrolling': scrollMode}">
-          <v-loadmore style="height:100%;overflow:scroll;" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
+          <!-- <v-loadmore style="height:100%;overflow:scroll;" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore"> -->
           <div class="item" v-for="(item, index) in cardList" :key="index">
               <img :src="item.pic" alt="pic">
               <div class="num">{{map[item.id]}}</div>
@@ -13,7 +13,7 @@
                   <div class="foot">{{item.desc_detail.substr(0,100)+'...'}}</div>
               </div>
           </div>
-          </v-loadmore>
+          <!-- </v-loadmore> -->
       </section>
   </div>
 </template>
@@ -100,7 +100,8 @@ export default {
   @import '../../../static/mixin';
   .my-cards {
       padding: 5px;
-      height: 100%;
+      padding-bottom: 50px;
+      // height: 100%;
       .item {
           padding: 5px;
           display: flex;

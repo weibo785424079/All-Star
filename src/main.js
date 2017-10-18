@@ -6,9 +6,15 @@ import router from './router'
 import 'mint-ui/lib/style.css'
 import MintUI from 'mint-ui'
 import store from './store'
+import { Observable } from 'rxjs/Observable'
+import { Subscription } from 'rxjs/Subscription'
+
+import VueRx from 'vue-rx'
+
 Vue.config.productionTip = false
 Vue.prototype.$bus = Vue.prototype.$bus || new Vue()
 Vue.use(MintUI)
+Vue.use(VueRx, { Observable, Subscription })
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

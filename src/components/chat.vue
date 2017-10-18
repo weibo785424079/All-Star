@@ -10,7 +10,7 @@
       </ul>
       <section class="insert">
           <input v-model="msgSend" type="text">&nbsp;
-          <mt-button class="default" size='small' @click="send">发送</mt-button>
+          <button class="default-btn" type="button" size='small' @click="send">发送</button>
       </section>
   </div>
 </template>
@@ -91,6 +91,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../static/mixin';
     .msg-box {
         text-align: left;
         padding: 10px;
@@ -122,5 +123,12 @@ export default {
             margin-right: 30px;
             font-size: 18px;
         }
+    }
+    .default-btn {
+      height: 30px;
+      width: 100px;
+      @include sc(14px,$green);
+      background: #fff;
+      @include borderRadius(5px)     
     }
 </style>

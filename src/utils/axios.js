@@ -1,6 +1,6 @@
 // axios 拦截配置
 import axios from 'axios'
-
+import router from '../router'
 axios.default.baseURL = '/'
 axios.defaults.timeout = 20000
 
@@ -20,13 +20,15 @@ axios.interceptors.request.use(
 // resopnse 拦截器
 axios.interceptors.response.use(
     response => {
-    //   const { data } = response
-        // 后端定义一个状态码 让用户重新登录
-        // if (status === 200 && data !== null) {
-            // if (data.code === '04001') {
-
-            // }
-      return JSON.parse(JSON.stringify(response))
+      const { data } = response
+      // 后端定义一个状态码 让用户重新登录
+      if (data.status === 10001 && router.currentRoute.path !== '/' && router.currentRoute.path !== '/index') {
+        router.push({
+          path: '/login'
+        })
+      } else {
+        return JSON.parse(JSON.stringify(response))
+      }
     },
     error => {
       return Promise.reject(error.response)

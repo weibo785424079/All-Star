@@ -28,6 +28,7 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
+import { MessageBox } from 'mint-ui'
 import userApi from '@/api/account'
 export default {
   data () {
@@ -53,9 +54,21 @@ export default {
       'getUser'
     ]),
     logOut () {
-      userApi.logOut().then(res => {
-        if (res.data.status === 200) {
-          this.$store.commit('GET_USERINFO', null)
+      MessageBox.confirm('', {
+        message: '确定退出当前账户？',
+        title: '提示'
+      }).then(action => {
+        if (action === 'confirm') {
+          userApi.logOut().then(res => {
+            if (res.data.status === 200) {
+              this.$store.commit('GET_USERINFO', null)
+              this.$router.push({
+                path: '/index'
+              })
+            }
+          }).catch(err => {
+            console.log(err)
+          })
         }
       }).catch(err => {
         console.log(err)

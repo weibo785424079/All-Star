@@ -174,7 +174,8 @@ export default {
   methods: {
     gotoAddress (path) {
       const info = this.userInfo
-      if ((info === null || info === '') && path.path !== '/') {
+      const id = (this.userInfo && this.userInfo.id) || '' // 这里userInfo有多种值 所有有这种复杂的写法
+      if ((info === null || info === '' || !id) && path.path !== '/') {
           // 没有用户信息需要重新登录
         this.$router.push({path: '/login'})
       } else {
