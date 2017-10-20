@@ -17,7 +17,7 @@
             <span class="login_span" @click="logIn" v-else>登录|注册</span>
         </b>
         <section class="title_head ellipsis" v-if="headTitle">
-            <span class="title_text">{{headTitle}}</span>
+            <span class="title_text">{{userInfo&&userInfo.name || ''}}</span>
         </section>
         <slot name="edit"></slot>
         <slot name="msite-title"></slot>
@@ -86,7 +86,8 @@ export default {
 @import '../../../static/mixin';
 #head_top {
     // background-color: $blue;
-    background-color: #5bb783;
+    // background-color: #5bb783;
+    background-color: #333;
     position: fixed;
     z-index: 100;
     left: 0;

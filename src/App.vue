@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <head-top goBack="true" headTitle="All-Stars" :signinUp="true"></head-top>    
+    <head-top v-if="showHead" goBack="true" headTitle="All-Stars" :signinUp="true"></head-top>
     <transition name="router-fade" mode="out-in" >
     <router-view/>
     </transition>
     <svg-icon></svg-icon>	
-    <foot-guide></foot-guide>
+    <foot-guide v-if="this.$route.fullPath != '/games'"></foot-guide>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     svgIcon,
     headTop,
     footGuide
+  },
+  computed: {
+    showHead () { return this.$route.fullPath !== '/index' && this.$route.fullPath !== '/games' }
   },
   mounted () {
     userApi.checkLogin().then(res => {
@@ -53,8 +56,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   // margin-top: 60px;
-  padding-top: 1rem;
-  padding-bottom: 100px;
+  // padding-top: 1rem;
+  // padding-bottom: 100px;
   height: 100%;
 }
 .router-fade-enter-active, .router-fade-leave-active {

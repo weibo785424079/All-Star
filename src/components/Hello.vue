@@ -50,6 +50,7 @@
 // import api from '@/api/account'
 import interestingNews from './star/star-interesting-news.vue'
 import alertTip from '@/components/common/alertTip.vue'
+import headTop from '../components/header/head.vue'
 import {mapState, mapActions} from 'vuex'
 import starCtrl from '@/api/star'
 export default {
@@ -65,7 +66,8 @@ export default {
   },
   components: {
     interestingNews,
-    alertTip
+    alertTip,
+    headTop
   },
   mounted () {
     const _this = this
@@ -122,7 +124,12 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-
+.hello {
+  // padding-top: 1rem;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 50px;
+}
 a {
   color: #42b983;
 }

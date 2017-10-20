@@ -5,6 +5,7 @@ const chat = r => require.ensure([], () => r(require('@/components/chat')), 'cha
 const login = r => require.ensure([], () => r(require('@/components/login/login')), 'login')
 const profile = r => require.ensure([], () => r(require('@/components/profile/profile')), 'profile')
 const getstar = r => require.ensure([], () => r(require('@/components/getstar/getstar')), 'getstar')
+const games = r => require.ensure([], () => r(require('@/components/games/star-ship-war')), 'games')
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: profile
+    },
+    {
+      path: '/games',
+      name: 'games',
+      component: games
     }
   ]
 })

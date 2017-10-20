@@ -44,15 +44,17 @@ export default {
         // @include fj;
         align-items: flex-start;
         img {
-            margin: 5px 20px 0 5px;
+            margin: 10px 20px 0 10px;
             float: left;
             @include wh(100px,100px);
             @include borderRadius(10px)
         }
         .cont {
-            padding: 5px;
+            padding: 10px;
             @include sc(12px,$green);
+            background: #fff;
             padding-bottom: 5px;
+            border-radius: 10px;
             .head {
                 @include sc(18px,red)
             }

@@ -80,7 +80,7 @@
           const _this = this
           const account = this.userAccount
           const password = this.passWord
-          if (account === '' || password === '') return
+          if (account === null || password === null) return
           userApi.login({
             account,
             password
@@ -220,6 +220,7 @@
     @import '../../../static/mixin';
 
     .loginContainer{
+        padding-top: 1rem;
         p, span, input{
             font-family: Helvetica Neue,Tahoma,Arial;
         }
@@ -293,7 +294,8 @@
     .login_container{
         margin: 0 .5rem 1rem;
         @include sc(18px, #fff);
-        background-color: $green;
+        // background-color: $green;
+        background-color: #333;
         padding: 5px 0;
         border: 1px;
         box-sizing: border-box;

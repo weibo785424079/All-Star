@@ -8,7 +8,8 @@
        <span>剩余：{{userInfo&&userInfo.leftTimes}}次 </span> 
     </div>
     <div v-if="randomBoxVisiable" class="random-box" ref="box">
-      <span @click="getStar" class="get">点击抽奖</span>
+      <!-- <span  @click="getStar" class="get">点击抽奖</span> -->
+      <span ref="get" class="get">点击抽奖</span>
     </div>
     <alert-tip v-if="alertTipVisiable" @closeTip="closeTip" :starInfo="starInfo"></alert-tip>
   </div>
@@ -19,6 +20,7 @@ import { mapState } from 'vuex'
 import alertTip from '@/components/common/alertTip.vue'
 import starApi from '@/api/star'
 import { MessageBox } from 'mint-ui'
+import { Observable } from 'rxjs'
 export default {
   data () {
     return {
@@ -40,8 +42,59 @@ export default {
   components: {
     alertTip
   },
-  mounted () {},
+  mounted () {
+    const btn = this.$refs['get']
+    Observable.fromEvent(btn, 'click').throttleTime(2000)
+    .switchMap(event => {
+      this.startAnimation()
+      return Observable.fromPromise(starApi.getStarRandom({id: this.userInfo.id}))
+    }).delay(2000).pluck('data').subscribe(res => {
+      this.stopAnimation()
+      if (this.userInfo.leftTimes >= 1) {
+        this.userInfo.leftTimes--
+      }
+      if (res.status === 200) {
+        this.showStar(res.data)
+      } else {
+        MessageBox({
+          message: res.message
+        })
+      }
+    })
+    // this.$subscribeTo(Observable.fromPromise(starApi.getStarRandom({id: 1})), function (count) {
+      // console.log(count)
+    // })
+    // Observable.interval(3000).flatMap(function (result) {
+    //   return Observable.from([result])
+    // }).subscribe(res => {
+    //   console.log(res)
+    // })
+    // var subject = new Subject()
+    // var source = Observable.interval(300).take(5)
+    // source.subscribe(subject)
+    // subject.subscribe(res => {
+    //   console.log(res)
+    // })
+    // subject.next('1')
+  },
   methods: {
+    showStar (starInfo) {
+      this.starInfo = starInfo
+      this.alertTipVisiable = true
+    },
+    startAnimation () {
+      const _this = this
+      const box = _this.$refs.box
+      box.classList.add('dump-animation')
+      if (_this.couldGet === false) return
+      _this.couldGet = false
+    },
+    stopAnimation () {
+      const _this = this
+      const box = this.$refs.box
+      box.classList.remove('dump-animation')
+      _this.couldGet = true
+    },
     getStar () {
       const _this = this
       const box = _this.$refs.box
@@ -56,14 +109,6 @@ export default {
           if (res.data.status === 200) {
             let star = res.data.data
             this.showTip(star)
-            // 减少用户抽奖剩余次数 将球员添加到用户所有
-            var o = {}
-            o.cid = star.id
-            o.uid = _this.userInfo.id
-            starApi.insertStarById(o).then(res => {
-            }).catch(err => {
-              console.log(err)
-            })
           } else {
             MessageBox(res.data.message)
             const box = this.$refs.box
@@ -116,6 +161,7 @@ export default {
   }
   #out {
     padding: 0 10px;
+    margin-top: 1rem;
   }
   .title {
     color: $green;

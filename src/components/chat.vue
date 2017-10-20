@@ -1,5 +1,5 @@
 <template>
-  <div id='chat'>
+  <div id='chat' style="padding-top:1rem;">
       <span style="color:green;font-size:40px;">{{userInfo&&userInfo.name}}</span> chatting with some friends!!
       <!-- <div class="right">在线：{{active}}</div> -->
       <ul class="msg-box">
@@ -98,7 +98,9 @@ export default {
         display: flex;
         flex-direction: column;
         height: 75vmax;
+        -webkit-overflow-scrolling : touch; 
         overflow: scroll;
+        
         .msg {
             margin-bottom: 10px;
           p{

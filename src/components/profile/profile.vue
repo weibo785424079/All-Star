@@ -1,7 +1,7 @@
 <template>
-  <div style="
-  height:100%;">
+  <div style="margin-top:1rem;">
       Stars: {{userInfo&&userInfo.name}}
+      <router-link class="right" to="/games">去玩游戏-></router-link>
       <section class="my-cards"  :style="{'-webkit-overflow-scrolling': scrollMode}">
           <!-- <v-loadmore style="height:100%;overflow:scroll;" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore"> -->
           <div class="item" v-for="(item, index) in cardList" :key="index">
@@ -22,6 +22,7 @@
 import { mapState } from 'vuex'
 import { Loadmore } from 'mint-ui'
 import starApi from '@/api/star'
+import { Observable } from 'rxjs'
 export default {
   data () {
     return {
@@ -44,33 +45,55 @@ export default {
   mounted () {
     const _this = this
     const id = _this.userInfo.id
-    starApi.getStarsById({ id }).then(res => {
-      let m = {}
-      let arr = []
-      if (res.data.status === 200) {
-        let cards = res.data.data
-        for (let card of cards) {
-          if (!m[card.cid]) {
-            m[card.cid] = 1
-            arr.push(card.cid)
-          } else {
-            m[card.cid]++
-          }
-        }
-        _this.map = m
-        starApi.getStars(arr).then(res => {
-          if (res.data.status === 200) {
-            _this.cardList = res.data.data
-          }
-        }).catch(err => {
-          console.log(err)
-        })
-      }
-    }).catch(err => {
-      console.log(err)
+    Observable.fromPromise(starApi.getStarsById({ id })).pluck('data', 'data').switchMap((cards) => {
+      _this.setMap(cards)
+      return Observable.from(cards).pluck('cid').distinct()
+    }).toArray().switchMap((arr) => {
+      return Observable.fromPromise(starApi.getStars(arr))
+    }).pluck('data', 'data').subscribe(res => {
+      _this.cardList = res
     })
+
+    // starApi.getStarsById({ id }).then(res => {
+    //   let m = {}
+    //   let arr = []
+    //   if (res.data.status === 200) {
+    //     let cards = res.data.data
+    //     for (let card of cards) {
+    //       if (!m[card.cid]) {
+    //         m[card.cid] = 1
+    //         arr.push(card.cid)
+    //       } else {
+    //         m[card.cid]++
+    //       }
+    //     }
+    //     _this.map = m
+    //     starApi.getStars(arr).then(res => {
+    //       if (res.data.status === 200) {
+    //         _this.cardList = res.data.data
+    //       }
+    //     }).catch(err => {
+    //       console.log(err)
+    //     })
+    //   }
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   },
   methods: {
+    setMap (cards) {
+      let m = {}
+      let arr = []
+      for (let card of cards) {
+        if (!m[card.cid]) {
+          m[card.cid] = 1
+          arr.push(card.cid)
+        } else {
+          m[card.cid]++
+        }
+      }
+      this.map = m
+    },
     loadTop () {
     //   location.reload()
       this.$refs.loadmore.onTopLoaded()
@@ -98,6 +121,10 @@ export default {
 </script>
 <style scoped lang="scss">
   @import '../../../static/mixin';
+  .right {
+    color: $blue;
+    margin-right: 10px;
+  }
   .my-cards {
       padding: 5px;
       padding-bottom: 50px;
