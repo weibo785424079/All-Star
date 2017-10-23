@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import userApi from '@/api/account'
 import HelloWorld from '@/components/Hello'
+import Store from '@/store'
 const chat = r => require.ensure([], () => r(require('@/components/chat')), 'chat')
 const login = r => require.ensure([], () => r(require('@/components/login/login')), 'login')
 const profile = r => require.ensure([], () => r(require('@/components/profile/profile')), 'profile')
@@ -9,7 +11,7 @@ const games = r => require.ensure([], () => r(require('@/components/games/star-s
 
 Vue.use(Router)
 
-export default new Router({
+var router = new Router({
   routes: [
     {
       path: '/',
@@ -48,3 +50,14 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach(async(to, from, next) => {
+  if (to.fullPath !== '/index' && to.fullPath !== '/login') {
+    // footGuide也有checklogin不加判断会死循环
+    var userInfo = await userApi.checkLogin()
+    Store.commit('GET_USERINFO', userInfo.data.data)
+  }
+  next()
+})
+
+export default router

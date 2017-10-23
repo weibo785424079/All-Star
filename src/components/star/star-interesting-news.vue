@@ -1,14 +1,16 @@
 <template>
   <div>
       <section class="box">
-          <div class="wrap" v-for="(item,index) in news" :key="index">
-              <img :src="item.imgUrl" alt="img">
+        <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+          <a class="wrap" v-for="(item,index) in news" :href="item.weburl" :key="index">
+              <img v-lazy="item.pic" alt="img">
               <div class="cont">
                   <div class="head">{{item.title}}</div>
-                  <div class="body">{{item.detail.substr(0,100)+'...'}}</div>
-                  <div class="foot">{{item.date}}</div>
+                  <div class="body" v-html="item.content.substr(0,100)+'...'"></div>
+                  <div class="foot">{{item.time}}</div>
               </div>
-          </div>
+          </a>
+        </mt-loadmore>
       </section>
   </div>
   
@@ -16,18 +18,53 @@
 
 <script>
 import starCtrl from '@/api/star'
+import { Observable } from 'rxjs'
+import server from '@/models/server'
+import Tools from '@/utils/tools'
+import { Loadmore } from 'mint-ui'
 export default {
   data () {
     return {
-      news: []
+      news: [],
+      allLoaded: false
     }
   },
   mounted () {
-    starCtrl.getAllNews().then(res => {
-      this.news = res.data.data
-    }).catch(err => {
-      console.log(err)
+    // https://way.jd.com/jisuapi/get?channel=头条&num=10&start=0&appkey
+    // starCtrl.getAllNews().then(res => {
+    //   this.news = res.data.data
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+    this.getNews().subscribe(res => {
+      this.news = res
+      Tools.setSessionStore('news', res)
     })
+  },
+  components: {
+    Loadmore
+  },
+  methods: {
+    getNews () {
+      return Observable.defer(function () {
+        if (Tools.getSessionStore('news')) {
+          return Observable.of(JSON.parse(Tools.getSessionStore('news')))
+        } else {
+          return Observable.fromPromise(starCtrl.getJDNews({
+            channel: 'NBA',
+            num: 5,
+            start: 0,
+            appkey: server.JDAppKey
+          })).pluck('data', 'result', 'result', 'list')
+        }
+      })
+    },
+    loadTop () {
+      debugger
+    },
+    loadBottom () {
+      debugger
+    }
   }
 }
 </script>
@@ -36,13 +73,15 @@ export default {
 @import '../../../static/mixin';
     .box {
      padding: 0 5px;
+     height: 100vmax;
     }
     .wrap {
         width: 100%;
-        height: 200px;
+        height: 160px;
         overflow: hidden;
         // @include fj;
         align-items: flex-start;
+        display: block;
         img {
             margin: 10px 20px 0 10px;
             float: left;
@@ -55,8 +94,9 @@ export default {
             background: #fff;
             padding-bottom: 5px;
             border-radius: 10px;
+            height: 155px;
             .head {
-                @include sc(18px,red)
+                @include sc(14px,red)
             }
             .body {
                 padding-top: 3px;

@@ -25,5 +25,10 @@ export default {
   },
   insertStarById (params) {
     return axios.post(`${PRE_URL}/marketting/insert/`, params)
+  },
+  getJDNews (params) {
+    return axios.get('/jd/jisuapi/get', {
+      params
+    })
   }
 }

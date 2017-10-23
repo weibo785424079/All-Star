@@ -1,5 +1,5 @@
 <template>
-  <div id="out" style="height:100%;">
+  <div id="out" style="height:100%;padding-top:1px;">
     <div class="title">
         极品球星卡等你来拿！ {{userInfo&&userInfo.name}}    
     </div>
@@ -164,10 +164,10 @@ export default {
     margin-top: 1rem;
   }
   .title {
-    color: $green;
-    font-size: 24px;
-    margin-top: 10px;
+    @include sc(24px,black);
+    margin-top: 9px;
     margin-bottom: 5px;
+    text-shadow: 2px 2px 2px #ccc;
   }
   .tip {
     @include fj;
@@ -178,14 +178,14 @@ export default {
       color: $green
     } 
     span:last-child {
-      color:red
+      color:$green
     }
   }
   .random-box {
     width: 300px;
     height: 400px;
     position: relative;
-    border: 1px solid $green;
+    border: 3px solid $green;
     margin-top: 30px;
     margin-left: 30px;
     background: #fff;
@@ -198,7 +198,7 @@ export default {
       margin-left: 50px;
       @include wh(200px,200px);
       background: $green;
-      color: #fff;
+      color: yellowgreen;
       border-radius: 50%;
       text-align: center;
       line-height: 200px;

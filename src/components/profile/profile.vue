@@ -122,7 +122,7 @@ export default {
 <style scoped lang="scss">
   @import '../../../static/mixin';
   .right {
-    color: $blue;
+    color: $green;
     margin-right: 10px;
   }
   .my-cards {

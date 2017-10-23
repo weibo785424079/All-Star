@@ -9,7 +9,7 @@
       <div id="msg-bottom"></div>          
       </ul>
       <section class="insert">
-          <input v-model="msgSend" type="text">&nbsp;
+          <input v-model="msgSend" style="border-radius:0;" type="text">&nbsp;
           <button class="default-btn" type="button" size='small' @click="send">发送</button>
       </section>
   </div>
