@@ -60,10 +60,8 @@ export default {
       })
     },
     loadTop () {
-      debugger
     },
     loadBottom () {
-      debugger
     }
   }
 }

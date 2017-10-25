@@ -1,6 +1,6 @@
 <template>
   <div id='chat' style="padding-top:1rem;">
-      <span style="color:green;font-size:40px;">{{userInfo&&userInfo.name}}</span> chatting with some friends!!
+      <span style="color:green;font-size:30px;">{{userInfo&&userInfo.name}}</span> chatting with some friends!!
       <!-- <div class="right">在线：{{active}}</div> -->
       <ul class="msg-box">
           <li class="msg" v-for="(item,index) in msgs" :style="userInfo&& userInfo.name==item.author?'text-align:right':'text-align:left'" :key="index"> 
