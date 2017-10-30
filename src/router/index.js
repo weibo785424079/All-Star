@@ -8,6 +8,9 @@ const login = r => require.ensure([], () => r(require('@/components/login/login'
 const profile = r => require.ensure([], () => r(require('@/components/profile/profile')), 'profile')
 const getstar = r => require.ensure([], () => r(require('@/components/getstar/getstar')), 'getstar')
 const games = r => require.ensure([], () => r(require('@/components/games/star-ship-war')), 'games')
+const upload = r => require.ensure([], () => r(require('@/components/upload/upload')), 'upload')
+const home = r => require.ensure([], () => r(require('@/components/home/home')), 'home')
+const setInfo = r => require.ensure([], () => r(require('@/components/home/setInfo/setInfo')), 'setInfo')
 
 Vue.use(Router)
 
@@ -47,6 +50,21 @@ var router = new Router({
       path: '/games',
       name: 'games',
       component: games
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: upload
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: home
+    },
+    {
+      path: '/setInfo',
+      name: 'setInfo',
+      component: setInfo
     }
   ]
 })

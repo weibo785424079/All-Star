@@ -17,5 +17,14 @@ export default {
   },
   logOut () {
     return axios.get(`${PRE_URL}/user/logout/`)
+  },
+  // 新增信息表
+  update (params) {
+    return axios.post(`${PRE_URL}/userMoreInfo/update/`, params)
+  },
+  getUserMoreInfo (params) {
+    return axios.get(`${PRE_URL}/getUserInfo/`, {
+      params: {...params}
+    })
   }
 }
