@@ -86,7 +86,7 @@ export default {
         xhr.open('post', '/api/asyncuplod/')
         xhr.send(formData)
       } catch (err) {
-        debugger
+        console.log(err)
       }
     },
     uploadEvent (options) {

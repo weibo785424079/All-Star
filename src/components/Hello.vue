@@ -72,7 +72,6 @@ export default {
   mounted () {
     const _this = this
     this.$bus.$on('bus', function () {
-      debugger
     })
     // this.getUser({ id: 2 })
     starCtrl.getStarInfo({}).then(res => {

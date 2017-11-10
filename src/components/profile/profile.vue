@@ -12,6 +12,7 @@
                   <div class="body">{{item.desc}}</div>
                   <div class="foot">{{item.desc_detail?item.desc_detail.substr(0,100)+'...':'...'}}</div>
               </div>
+
           </div>
           <!-- </v-loadmore> -->
       </section>
@@ -99,7 +100,6 @@ export default {
       this.$refs.loadmore.onTopLoaded()
     },
     loadBottom () {
-      debugger
       this.$refs.loadmore.onBottomLoaded()
     },
     loadData () {

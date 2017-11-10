@@ -65,7 +65,7 @@ export default {
         MessageBox({
           message: '飞船被击毁，game over！！',
           complete (res) {
-            debugger
+            // debugger
           }
         })
         _this.startGanmeBox = true

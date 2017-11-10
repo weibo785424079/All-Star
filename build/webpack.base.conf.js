@@ -41,7 +41,7 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig,
-        exclude: [path.resolve(__dirname, '../src/components')]
+        exclude: process.env.NODE_ENV === 'production'? [path.resolve(__dirname, '../src/test')] :[path.resolve(__dirname, '../src/components')]
       },
       {
         test: /\.js$/,
