@@ -1,9 +1,10 @@
 <template>
   <div id='out'>
-      <button class="btn" id="J_UploadPictureBtn">上传图片</button>
-     <hr/>
+      <img id="J_UploadPictureBtn" class="J_UploadPictureBtn" :src="imgUrl" v-if="imgUrl" alt="">
+      <button v-else class="btn J_UploadPictureBtn">上传图片</button>
+       
 <!-- <p>上传进度<span id="J_UploadProgress">0</span>%</p> -->
-<p>上传结果图片</p>
+    <!-- <p>上传结果图片</p> -->
 <div id="J_PicturePreview" class="preview-picture">
 </div>
   </div>
@@ -28,13 +29,14 @@ export default {
       }
     }
   },
+  props: ['imgUrl'],
   mounted () {
     this.upload()
   },
   methods: {
     upload () {
       const _this = this
-      let btn = document.getElementById('J_UploadPictureBtn')
+      let btn = document.querySelector('.J_UploadPictureBtn')
       let progressElem = document.getElementById('J_UploadProgress')
       let previewElem = document.getElementById('J_PicturePreview')
       btn.addEventListener('click', function () {
@@ -42,7 +44,8 @@ export default {
           success: function (result) {
             console.log(result)
             if (result && result.success && result.data && result.data.pictureUrl) {
-              previewElem.innerHTML = '<img src="' + result.data.pictureUrl + '" style="max-width: 100%">'
+              _this.$emit('setPic', result.data.pictureUrl)
+              previewElem.innerHTML = '<img id=previewImg src="' + result.data.pictureUrl + '" style="max-width: 100%;width:150px;">'
             }
           },
           progress: function (data) {
@@ -111,6 +114,16 @@ export default {
 
 <style lang='scss' scoped>
 #out {
-  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+ #previewImg {
+   width: 100px
+ }
+ img{
+   width: 375px;
+   height: 110px;
+ }
 }
 </style>

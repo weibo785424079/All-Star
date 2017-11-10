@@ -5,12 +5,12 @@
       <section class="my-cards"  :style="{'-webkit-overflow-scrolling': scrollMode}">
           <!-- <v-loadmore style="height:100%;overflow:scroll;" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore"> -->
           <div class="item" v-for="(item, index) in cardList" :key="index">
-              <img :src="item.pic" alt="pic">
+              <img v-lazy="item.pic" alt="pic">
               <div class="num">{{map[item.id]}}</div>
               <div class="cont">
                   <div class="head">{{item.name}}</div>
                   <div class="body">{{item.desc}}</div>
-                  <div class="foot">{{item.desc_detail.substr(0,100)+'...'}}</div>
+                  <div class="foot">{{item.desc_detail?item.desc_detail.substr(0,100)+'...':'...'}}</div>
               </div>
           </div>
           <!-- </v-loadmore> -->

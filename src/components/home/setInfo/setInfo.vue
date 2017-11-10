@@ -1,12 +1,13 @@
 <template>
   <div class="out">
      <section class="user-info">
-        <img  alt="上传头像">    
-        <div class="info">
+        <!-- <img  alt="上传头像">  -->
+     <upload-tpl :imgUrl="info.pic" @setPic="setPic"></upload-tpl>       
+        <!-- <div class="info">
             <p class="name">{{userInfo.nickname || '设置昵称'}}</p>
             <p class="level">lv: {{userInfo.level || '1'}}</p>
             <p class="team">拥有球队：野牛队{{interval$}}</p>
-        </div>
+        </div> -->
      </section>      
      <section class="activity-module">
         <mt-field label="昵称" placeholder="请输入用户名" v-model="info.nick_name"></mt-field>
@@ -27,6 +28,8 @@ import { Observable } from 'rxjs'
 import userApi from '@/api/account'
 import { mapState } from 'vuex'
 import { Field, MessageBox } from 'mint-ui'
+import uploadTpl from '../../upload/upload'
+
 export default {
   name: 'home',
   mounted () {
@@ -59,11 +62,15 @@ export default {
     ])
   },
   components: {
-    Field
+    Field,
+    uploadTpl
   },
   methods: {
+    setPic (data) {
+      this.pic = data
+    },
     update () {
-      const params = Object.assign({...this.info}, {uid: this.userInfo.id})
+      const params = Object.assign({...this.info}, {uid: this.userInfo.id}, {pic: this.pic})
       Observable.fromPromise(userApi.update(params)).pluck('data').subscribe(res => {
         MessageBox(res.message)
         if (res.status === 200) {
@@ -86,13 +93,9 @@ export default {
      height: 100%;
 }
   .user-info {
-      height: 110px;
-      border-radius: 5px;
-      padding: 5px;
       display: flex;
-      align-items: center;
       background: #fff;
-      padding-left: 30px;
+      height: 110px;
       img {
           height: 70px;
           width: 70px;
@@ -118,5 +121,9 @@ export default {
   .bottom-btn {
       margin-top: 20px;
   }
-
+#J_PicturePreview {
+  img {
+    width: 100px;
+  }
+}
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div class="out">
      <section class="user-info" @click="setInfo">
-        <img src="../../assets/curry/timg.jpeg" alt="img">    
+        <img v-if="moreInfo.pic" :src="moreInfo.pic" alt="img">
+        <p v-else>上传头像</p>
         <div class="info">
             <p class="name">昵称：{{moreInfo.nick_name || '设置昵称'}}</p>
             <p class="team">拥有球队：{{moreInfo.team}}</p>
@@ -52,6 +53,7 @@ export default {
       moreInfo: {}
     }
   },
+  components: {},
   mounted () {
     Observable.fromPromise(userApi.getUserMoreInfo({ uid: this.userInfo.id })).subscribe(res => {
       this.moreInfo = res.data.data
@@ -83,10 +85,12 @@ export default {
       display: flex;
       align-items: center;
       background: #fff;
-      padding-left: 30px;
+      padding-left: 20px;
       img {
-          height: 70px;
-          width: 70px;
+          height: 80px;
+          width: 80px;
+          margin-right: 10px;
+          border-radius: 50%;       
       }
       .info {
           flex: 1;
@@ -100,6 +104,7 @@ export default {
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
+              width: 230px
           }
       }
   }
