@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 import headTop from './components/header/head.vue'
 import footGuide from './components/footer/footGuide.vue'
 import svgIcon from './components/common/svg'
