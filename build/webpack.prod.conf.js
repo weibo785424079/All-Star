@@ -17,7 +17,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true
-    })
+    }).concat(
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: vueLoaderConfig({sourceMap: true, extract: true})
+      }
+    )
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {

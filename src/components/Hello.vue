@@ -57,7 +57,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: '欢迎来NBA球星卡基地！',
+      msg: '欢迎来NBA全明星动员！',
       user: [],
       alertTipVisiable: false,
       starInfos: [],
