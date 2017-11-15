@@ -177,10 +177,10 @@ export default {
       font-size:18px;
     }
     span:first-child {
-      color: $green
+      color: $blue
     } 
     span:last-child {
-      color:$green
+      color:$blue
     }
   }
   .random-box {
