@@ -187,7 +187,7 @@ export default {
     width: 300px;
     height: 400px;
     position: relative;
-    border: 3px solid $green;
+    border: 3px solid black;
     margin-top: 30px;
     margin-left: 30px;
     background: #fff;
@@ -199,8 +199,8 @@ export default {
       margin-top: 100px;
       margin-left: 50px;
       @include wh(200px,200px);
-      background: $green;
-      color: yellowgreen;
+      background: black;
+      color: #fff;
       border-radius: 50%;
       text-align: center;
       line-height: 200px;

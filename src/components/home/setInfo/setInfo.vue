@@ -115,11 +115,11 @@ export default {
 
   .activity-module {
       background: #fff;
-      margin-top: 30px;
+      margin-top: 10px;
       
   }
   .bottom-btn {
-      margin-top: 20px;
+      margin-top: 10px;
   }
 #J_PicturePreview {
   img {
