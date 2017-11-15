@@ -83,7 +83,7 @@ export default {
           // options.progress(per)
           console.log('onprogress')
         }
-        xhr.open('post', 'https:///api/asyncuplod/')
+        xhr.open('post', '/api/asyncuplod/')
         xhr.send(formData)
       } catch (err) {
         console.log(err)
