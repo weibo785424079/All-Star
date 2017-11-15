@@ -97,7 +97,7 @@ export default {
         padding: 10px;
         display: flex;
         flex-direction: column;
-        height: 75vmax;
+        height: 73vmax;
         -webkit-overflow-scrolling : touch; 
         overflow: scroll;
         
@@ -119,7 +119,7 @@ export default {
         input {
             margin: auto;
             flex: 1;
-            height: 25px;
+            height: 32px;
             border: 1px solid #5bb683;
             border-radius: 5px;
             margin-right: 30px;
