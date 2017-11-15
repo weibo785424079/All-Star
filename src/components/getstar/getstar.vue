@@ -1,5 +1,5 @@
 <template>
-  <div id="out" style="height:100%;padding-top:1px;">
+  <div id="out">
     <div class="title">
         极品球星卡等你来拿！ {{userInfo&&userInfo.name}}    
     </div>
@@ -161,11 +161,13 @@ export default {
   }
   #out {
     padding: 0 10px;
-    margin-top: 1rem;
+    padding-top: 1rem;
+    height: 100%;
+    overflow: hidden;
   }
   .title {
     @include sc(24px,black);
-    margin-top: 9px;
+    // margin-top: 9px;
     margin-bottom: 5px;
     text-shadow: 2px 2px 2px #ccc;
   }
