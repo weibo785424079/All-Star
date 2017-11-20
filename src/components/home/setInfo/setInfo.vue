@@ -72,14 +72,13 @@ export default {
     update () {
       const params = Object.assign({...this.info}, {uid: this.userInfo.id}, {pic: this.pic})
       Observable.fromPromise(userApi.update(params)).pluck('data').subscribe(res => {
-        MessageBox(res.message)
-        if (res.status === 200) {
-          setTimeout(() => {
+        MessageBox(res.message).then(res => {
             this.$router.push({
               path: '/home'
             })
-          }, 1000)
-        }
+        }).catch(err => {
+          console.log(err)
+        })
       })
     }
   }

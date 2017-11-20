@@ -96,6 +96,7 @@ export default {
       let input = document.createElement('input')
       input.setAttribute('type', 'file')
       input.setAttribute('name', 'files')
+      input.setAttribute('accept', 'image/*')
       input.click()
       input.onchange = function () {
         file = input.files[0]
