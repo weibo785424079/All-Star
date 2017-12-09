@@ -1,7 +1,6 @@
 <template>
   <div>
-      <section class="box">
-        <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+      <section class="box" v-load-more = 'loadMore' type='1'>
           <a class="wrap" v-for="(item,index) in news" :href="item.weburl" :key="index">
               <img v-lazy="item.pic" alt="img">
               <div class="cont">
@@ -10,7 +9,6 @@
                   <div class="foot">{{item.time}}</div>
               </div>
           </a>
-        </mt-loadmore>
       </section>
   </div>
   
@@ -26,7 +24,10 @@ export default {
   data () {
     return {
       news: [],
-      allLoaded: false
+      allLoaded: false,
+      num: 5,
+      start: 0,
+      dataIsEnd: false
     }
   },
   mounted () {
@@ -52,16 +53,29 @@ export default {
         } else {
           return Observable.fromPromise(starCtrl.getJDNews({
             channel: 'NBA',
-            num: 5,
-            start: 0,
+            num: this.num,
+            start: this.start,
             appkey: server.JDAppKey
           })).pluck('data', 'result', 'result', 'list')
         }
       })
     },
-    loadTop () {
-    },
-    loadBottom () {
+    loadMore () {
+      if (this.load_more_ing === true || this.dataIsEnd === true) return
+      this.load_more_ing = true
+      this.start += 5
+      Observable.fromPromise(starCtrl.getJDNews({
+        channel: 'NBA',
+        num: this.num,
+        start: this.start,
+        appkey: server.JDAppKey
+      })).pluck('data', 'result', 'result', 'list').subscribe(res => {
+        if (res.length < this.num) {
+          this.dataIsEnd = true
+        }
+        this.news = this.news.concat(res)
+        this.load_more_ing = false
+      })
     }
   }
 }
@@ -71,7 +85,8 @@ export default {
 @import '../../../static/mixin';
     .box {
      padding: 0 5px;
-     height: 100vmax;
+     height: 120vmax;
+     overflow: scroll
     }
     .wrap {
         width: 100%;

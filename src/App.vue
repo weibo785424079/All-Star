@@ -50,6 +50,10 @@ export default {
 
 <style lang='scss'>
 @import './static/common.scss';
+body {
+  height: auto;
+  overflow-y: scroll;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
