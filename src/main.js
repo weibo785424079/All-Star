@@ -67,14 +67,14 @@ Vue.directive('load-more', {
       loadMore()
     }, false)
     el.addEventListener('touchend', () => {
-      oldScrollTop = scrollEl.scrollTop
+      oldScrollTop = (document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop).scrollTop
       moveEnd()
     }, false)
 
     const moveEnd = () => {
       requestFram = requestAnimationFrame(() => {
         if (scrollEl.scrollTop !== oldScrollTop) {
-          oldScrollTop = scrollEl.scrollTop
+          oldScrollTop = (document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop).scrollTop
           moveEnd()
         } else {
           cancelAnimationFrame(requestFram)
@@ -85,8 +85,9 @@ Vue.directive('load-more', {
     }
 
     const loadMore = () => {
+      // document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
       console.log(scrollEl.scrollTop + windowHeight - (height + setTop + paddingBottom + marginBottom - scrollReduce))
-      if (scrollEl.scrollTop + windowHeight >= height + setTop + paddingBottom + marginBottom - scrollReduce) {
+      if ((document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop) + windowHeight >= height + setTop + paddingBottom + marginBottom - scrollReduce) {
         binding.value()
       }
     }
