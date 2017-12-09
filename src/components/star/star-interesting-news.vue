@@ -47,14 +47,15 @@ export default {
   },
   methods: {
     getNews () {
+      const _this = this
       return Observable.defer(function () {
         if (Tools.getSessionStore('news')) {
           return Observable.of(JSON.parse(Tools.getSessionStore('news')))
         } else {
           return Observable.fromPromise(starCtrl.getJDNews({
             channel: 'NBA',
-            num: this.num,
-            start: this.start,
+            num: _this.num,
+            start: _this.start,
             appkey: server.JDAppKey
           })).pluck('data', 'result', 'result', 'list')
         }
