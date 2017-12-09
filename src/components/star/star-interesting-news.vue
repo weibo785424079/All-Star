@@ -85,7 +85,7 @@ export default {
 @import '../../../static/mixin';
     .box {
      padding: 0 5px;
-     height: 120vmax;
+    //  height: 120vmax;
      overflow: scroll
     }
     .wrap {
