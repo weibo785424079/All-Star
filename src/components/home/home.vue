@@ -22,7 +22,7 @@
              </li>
              <li>
                  <i class="iconfont icon-gaojian-zuozhe"></i>
-                 <router-link to="">博客</router-link>
+                 <router-link to="/blog">博客</router-link>
             </li>
              <li>
                  <i class="iconfont icon-market"></i>

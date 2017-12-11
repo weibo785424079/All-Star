@@ -11,6 +11,7 @@ const games = r => require.ensure([], () => r(require('@/components/games/star-s
 const upload = r => require.ensure([], () => r(require('@/components/upload/upload')), 'upload')
 const home = r => require.ensure([], () => r(require('@/components/home/home')), 'home')
 const setInfo = r => require.ensure([], () => r(require('@/components/home/setInfo/setInfo')), 'setInfo')
+const blog = r => require.ensure([], () => r(require('@/components/blog/blog')), 'blog')
 
 Vue.use(Router)
 
@@ -65,6 +66,11 @@ var router = new Router({
       path: '/setInfo',
       name: 'setInfo',
       component: setInfo
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: blog
     }
   ]
 })

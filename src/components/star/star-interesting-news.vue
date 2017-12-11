@@ -19,7 +19,6 @@ import starCtrl from '@/api/star'
 import { Observable } from 'rxjs'
 import server from '@/models/server'
 import Tools from '@/utils/tools'
-import { Loadmore } from 'mint-ui'
 export default {
   data () {
     return {
@@ -41,9 +40,6 @@ export default {
       this.news = res
       Tools.setSessionStore('news', res)
     })
-  },
-  components: {
-    Loadmore
   },
   methods: {
     getNews () {

@@ -53,6 +53,7 @@ import alertTip from '@/components/common/alertTip.vue'
 import headTop from '../components/header/head.vue'
 import {mapState, mapActions} from 'vuex'
 import starCtrl from '@/api/star'
+// import $ from 'jquery'
 export default {
   name: 'hello',
   data () {
@@ -81,6 +82,22 @@ export default {
     }).catch(err => {
       console.log(err)
     })
+    // 不要删除 jsonp例子
+    // $.ajax({
+    //   url: 'api/jsonp/',
+    //   type: 'GET',
+    //   data: {},
+    //   dataType: 'jsonp',
+    //   jsonp: 'callback',
+    //   jsonpCallback: 'callback',
+    //   success: function (res) {
+    //     console.log(res.name)
+    //   },
+    //   error: function (err) {
+    //     console.log(err)
+    //     // callback(err)
+    //   }
+    // })
   },
   methods: {
     ...mapActions([
